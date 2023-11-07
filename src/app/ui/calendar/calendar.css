@@ -168,4 +168,12 @@
 
 .p-calendar-clearable {
     position: relative;
-} 
+}
+
+.p-highlight {
+  background-color: cyan;
+}
+
+.p-inrange {
+  background-color: rgb(181, 255, 255);
+}

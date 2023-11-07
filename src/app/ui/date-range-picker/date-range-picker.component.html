@@ -1,0 +1,52 @@
+<p-calendar
+  #datePicker
+  [(ngModel)]="value"
+  (ngModelChange)="changeValue($event)"
+  selectionMode="range"
+  [inline]="true"
+>
+  <ng-template pTemplate="header">
+    <div style="display: flex">
+      <input
+        mask="d0/M0/0000"
+        [ngModel]="startDate"
+        id="12323"
+        name="startDate"
+        (ngModelChange)="changeDate($event, 'startDate')"
+        [showMaskTyped]="true"
+        [dropSpecialCharacters]="false"
+        [specialCharacters]="['/']"
+        shownMaskExpression="dd/mm/yyyy"
+        [keepCharacterPositions]="true"
+        [validation]="false"
+      />
+      -
+      <input
+        mask="d0/M0/0000"
+        [ngModel]="endDate"
+        id="abbc"
+        name="endDate"
+        (ngModelChange)="changeDate($event, 'endDate')"
+        [showMaskTyped]="true"
+        [dropSpecialCharacters]="false"
+        [specialCharacters]="['/']"
+        shownMaskExpression="dd/mm/yyyy"
+        [keepCharacterPositions]="true"
+        [validation]="true"
+      />
+    </div>
+    <div style="text-align: center">
+      Selected Date: {{ countSelectedDay(value) }}
+    </div>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <div>
+      <button>Cancel</button>
+      <button>Apply</button>
+    </div>
+  </ng-template>
+</p-calendar>
+
+<p>
+  {{ value | json }}
+</p>

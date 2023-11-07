@@ -282,11 +282,14 @@ export interface LocaleSettings {
                           <span
                             [ngClass]="{
                               'p-highlight': isSelected(date),
+                              'p-inrange': isDateInRange(date),
                               'p-disabled': !date.selectable
                             }"
                             (click)="onDateSelect($event, date)"
                             draggable="false"
                             (keydown)="onDateCellKeydown($event, date, i)"
+                            (mouseenter)="tempDate = date;"
+                            (mouseleave)="tempDate = null"
                             pRipple
                           >
                             <ng-container *ngIf="!dateTemplate">{{
@@ -968,6 +971,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
   set locale(newLocale: LocaleSettings) {
     console.warn('Locale property has no effect, use new i18n API instead.');
   }
+
+  public tempDate;
 
   constructor(
     public el: ElementRef,
@@ -1701,6 +1706,12 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     return between;
+  }
+
+  isDateInRange(dateMeta) {
+    if(!this.value || !this.value[0] || !this.tempDate) return false;
+    const tempEndDate = new Date(this.tempDate.year, this.tempDate.month, this.tempDate.day);
+    return this.isDateBetween(this.value[0], this.value[1]|| tempEndDate, dateMeta) && !this.isDateEquals(this.value[0], this.tempDate)
   }
 
   isSingleSelection(): boolean {
